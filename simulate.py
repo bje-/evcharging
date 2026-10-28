@@ -7,6 +7,7 @@
 
 """A simulation of different EVSE charging regimes."""
 
+import csv
 import datetime
 import random
 from zoneinfo import ZoneInfo
@@ -22,6 +23,10 @@ NUM_VEHICLES = 40
 
 UTC=ZoneInfo("UTC")
 START_TIME_DT = datetime.datetime(2026, 1, 1, 17, 0, 0, tzinfo=UTC)
+
+with open('load_profile.csv', mode='r') as trace:
+    reader = csv.DictReader(trace)
+    trace_data = [float(row['normalised_to_peak']) for row in reader]
 
 # ruff: ignore[ARG001]
 def maxpower(time_t: int) -> float:
